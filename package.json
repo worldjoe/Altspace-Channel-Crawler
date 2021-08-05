@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "crawler": "^1.3.0",
+    "fs": "^0.0.1-security"
+  },
+  "name": "altspace-channel-crawler",
+  "version": "1.0.0",
+  "description": "crawl altspace channels for events",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
