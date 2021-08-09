@@ -33,6 +33,7 @@ function writeVenue(name, website) {
   fs.appendFile('venue.csv', venueText, function (err) {
     if (err) return console.log(err);
   });
+  return name;
 }
 
 function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, description) {
@@ -71,7 +72,7 @@ function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, desc
   });
 }
 
-function handleEventLink(eventLink) {
+function handleEventLink(venue, eventLink) {
   console.log(eventLink);
   const eventCrawler = new Crawler({
     maxConnections: 10,
@@ -86,12 +87,12 @@ function handleEventLink(eventLink) {
           var title = $('title').text();
             console.log(title);
             var links = $("a");
-          var venue;
+          //          var venue;
           links.each(function(i, link) {
             var linkHref = $(link).attr("href");
             if (linkHref.search(/\/channels\//i) !== -1) {
                console.log("Channel = " + linkHref);
-               venue = $(link).find('h2').text();
+              //    venue = $(link).find('h2').text();
               console.log("Venue = " + venue);
             }
           });
@@ -138,7 +139,8 @@ const c = new Crawler({
           //console.log($('title').text());
           // console.log($('div.banner__footer').text());
           var links = $("a");
-          writeVenue($('title').text(), res.request.uri.href);
+          var venue = $('title').text();
+          venue = writeVenue(venue, res.request.uri.href);
           links.each(function(i, link) {
             //console.log($(link).attr("href"));
             var linkHref = $(link).attr("href");
@@ -149,7 +151,7 @@ const c = new Crawler({
                 //                console.log("skipping past event");
               } else {
                 //                console.log(res.request.uri.href);
-                handleEventLink(linkHref);
+                handleEventLink(venue, linkHref);
               }
             }
           });
@@ -162,6 +164,7 @@ const c = new Crawler({
 //c.queue();
 c.queue( 'https://account.altvr.com/channels/otterspace');
 c.queue( 'https://account.altvr.com/channels/brcvr');
+c.queue( 'https://account.altvr.com/channels/VenusSX');
 
 // Queue a list of URLs
 //c.queue(['http://www.google.com/','http://www.yahoo.com']);
