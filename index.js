@@ -72,6 +72,18 @@ function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, desc
   });
 }
 
+function isDuringBurnWeek(unixStartTime) {
+  // gate is August 28th
+  // departure is September 6th
+  // Friday August 27 = 1630121546
+  // Tuesday September 7th = 1631057546
+  //
+  if (unixStartTime > 1630121546 && unixStartTime < 1631057546) {
+    return true;
+  }
+  return false;
+}
+
 function handleEventLink(venue, eventLink) {
   console.log(eventLink);
   const eventCrawler = new Crawler({
@@ -117,7 +129,13 @@ function handleEventLink(venue, eventLink) {
           });
           console.log(description);
 
-          writeEvent(title, venue, unixStartTime, unixEndTime, hashTagArray, 'https://account.altvr.com/' + eventLink, description);
+          // don't add any events from camps that aren't during burn week
+          // unless they are hosted by BRCvr Events
+          if (venue.localeCompare("BRCvr Events") == 0 || isDuringBurnWeek(unixStartTime)) {
+            writeEvent(title, venue, unixStartTime, unixEndTime, hashTagArray, 'https://account.altvr.com/' + eventLink, description);
+          } else {
+            console.log("Ignoring non burn week event from " + venue);
+          }
 
         }
         done();
@@ -162,8 +180,14 @@ const c = new Crawler({
 
 // Queue just one URL, with default callback
 //c.queue();
+//c.queue( '');
 c.queue( 'https://account.altvr.com/channels/otterspace');
 c.queue( 'https://account.altvr.com/channels/brcvr');
+c.queue( 'https://account.altvr.com/channels/Marshmallow');
+c.queue( 'https://account.altvr.com/channels/pagansinvr');
+c.queue( 'https://account.altvr.com/channels/tlp');
+c.queue( 'https://account.altvr.com/channels/nikosevents');
+c.queue( 'https://account.altvr.com/channels/DJCeleste');
 c.queue( 'https://account.altvr.com/channels/VenusSX');
 
 // Queue a list of URLs
