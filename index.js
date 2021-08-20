@@ -28,6 +28,7 @@ fs.writeFile('events.csv', 'EVENT NAME,VENUE NAME,START DATE,START TIME,END DATE
 
 function writeVenue(name, website) {
   name = name.replace(' | AltspaceVR', '');
+  name = name.replace("'", '');
   venueText = name + ',' + website + '\n';
   console.log("Writing venue " + venueText);
   fs.appendFile('venue.csv', venueText, function (err) {
@@ -38,6 +39,7 @@ function writeVenue(name, website) {
 
 function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, description) {
   name = name.replace(' | AltspaceVR', '');
+  name = name.replace(',', '');
   //  venue = venue.replace(' Channel', '');
 
   var endDateObj = new Date(unixEndTime * 1000);
@@ -189,6 +191,12 @@ c.queue( 'https://account.altvr.com/channels/tlp');
 c.queue( 'https://account.altvr.com/channels/nikosevents');
 c.queue( 'https://account.altvr.com/channels/DJCeleste');
 c.queue( 'https://account.altvr.com/channels/VenusSX');
+c.queue( 'https://account.altvr.com/channels/nymphs_vrium');
+c.queue( 'https://account.altvr.com/channels/CampKissingFish');
+c.queue( 'https://account.altvr.com/channels/wellbeinginVR');
+c.queue( 'https://account.altvr.com/channels/timemachine');
+c.queue( 'https://account.altvr.com/channels/paperbrcvr');
+c.queue( 'https://account.altvr.com/channels/TurtleTurtleTurtle');
 
 // Queue a list of URLs
 //c.queue(['http://www.google.com/','http://www.yahoo.com']);
