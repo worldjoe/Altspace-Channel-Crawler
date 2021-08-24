@@ -197,6 +197,27 @@ c.queue( 'https://account.altvr.com/channels/wellbeinginVR');
 c.queue( 'https://account.altvr.com/channels/timemachine');
 c.queue( 'https://account.altvr.com/channels/paperbrcvr');
 c.queue( 'https://account.altvr.com/channels/TurtleTurtleTurtle');
+c.queue( 'https://account.altvr.com/channels/1804280890814104486');
+c.queue( 'https://account.altvr.com/channels/nymphs_vrium');
+c.queue( 'https://account.altvr.com/channels/1647417260878332280');
+c.queue( 'https://account.altvr.com/channels/BurningMountain');
+c.queue( 'https://account.altvr.com/channels/meditation');
+c.queue( 'https://account.altvr.com/channels/aestheticmobiledivision');
+c.queue( 'https://account.altvr.com/channels/videogasmchannel');
+c.queue( 'https://account.altvr.com/channels/BRCvrVirtualRangerEvents');
+c.queue( 'https://account.altvr.com/channels/Gnosis');
+c.queue( 'https://account.altvr.com/channels/1809820067253191080');
+c.queue( 'https://account.altvr.com/channels/BRC3PO');
+c.queue( 'https://account.altvr.com/channels/1809913081313099942');
+c.queue( 'https://account.altvr.com/channels/1808277890802909627');
+c.queue( 'https://account.altvr.com/channels/1808531147869651662');
+c.queue( 'https://account.altvr.com/channels/Fuckup-Nights-Armenia-261262471068075');
+c.queue( 'https://account.altvr.com/channels/i-transcendence');
+c.queue( 'https://account.altvr.com/channels/1810363593342845345');
+c.queue( 'https://account.altvr.com/channels/1810611495667499372');
+c.queue( 'https://account.altvr.com/channels/1704445078413509384');
+c.queue( 'https://account.altvr.com/channels/flight2mars');
+c.queue( 'https://account.altvr.com/channels/1807495125421523031');
 
 // Queue a list of URLs
 //c.queue(['http://www.google.com/','http://www.yahoo.com']);
