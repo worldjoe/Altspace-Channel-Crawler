@@ -21,7 +21,7 @@ fs.writeFile('organizer.csv', 'ORGANIZER NAME,ORGANIZER EMAIL,ORGANIZER WEBSITE,
 */
 
 
-fs.writeFile('events.csv', 'EVENT NAME,VENUE NAME,START DATE,START TIME,END DATE,END TIME,TIMEZONE, CATEGORIES,EVENT WEBSITE,EVENT DESCRIPTION\n', function (err) {
+fs.writeFile('events.csv', 'EVENT NAME,VENUE NAME,START DATE,START TIME,END DATE,END TIME,TIMEZONE, CATEGORIES,EVENT WEBSITE,EVENT DESCRIPTION, EVENT CODE\n', function (err) {
   if (err) return console.log(err);
 });
 
@@ -37,7 +37,7 @@ function writeVenue(name, website) {
   return name;
 }
 
-function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, description) {
+function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, description, eventCode) {
   name = name.replace(' | AltspaceVR', '');
   name = name.replace(/,/g, '');
   //  venue = venue.replace(' Channel', '');
@@ -67,7 +67,7 @@ function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, desc
   name = name.replace(/\n/gi, '');
   name = name.replace(/\r/gi, '');
 
-  var eventString = '"' + name + '",' + venue + ',' + startDate + ',' + startTime + ',' + endDate + ',' + endTime + ',' + 'UTC,"' + tags.join() + '",' + website + ',"' + description + '"\n';
+  var eventString = '"' + name + '",' + venue + ',' + startDate + ',' + startTime + ',' + endDate + ',' + endTime + ',' + 'UTC,"' + tags.join() + '",' + website + ',"' + description + '",' + eventCode + '\n';
   console.log(eventString);
 
   fs.appendFile('events.csv', eventString, function (err) {
@@ -132,10 +132,14 @@ function handleEventLink(venue, eventLink) {
           });
           console.log(description);
 
+          // find event code
+          var eventCode = $("div.event_code").find("span").text();
+          console.log("Event Code " + eventCode);
+
           // don't add any events from camps that aren't during burn week
           // unless they are hosted by BRCvr Events
           if (venue.localeCompare("BRCvr Events") == 0 || isDuringBurnWeek(unixStartTime)) {
-            writeEvent(title, venue, unixStartTime, unixEndTime, hashTagArray, 'https://account.altvr.com/' + eventLink, description);
+            writeEvent(title, venue, unixStartTime, unixEndTime, hashTagArray, 'https://account.altvr.com/' + eventLink, description, eventCode);
           } else {
             console.log("Ignoring non burn week event from " + venue);
           }
@@ -182,6 +186,7 @@ const c = new Crawler({
 });
 
 // Queue just one URL, with default callback
+// to find the NUMBER of the channel look for the favoritable_id href
 //c.queue();
 //c.queue( '');
 c.queue( 'https://account.altvr.com/channels/1809820067253191080');
@@ -204,7 +209,6 @@ c.queue( 'https://account.altvr.com/channels/recyclecamp');
 c.queue( 'https://account.altvr.com/channels/BRC3PO');
 c.queue( 'https://account.altvr.com/channels/Gnosis');
 c.queue( 'https://account.altvr.com/channels/Chronotron');
-c.queue( 'https://account.altvr.com/channels/1704445078413509384');
 c.queue( 'https://account.altvr.com/channels/1809913081313099942');
 c.queue( 'https://account.altvr.com/channels/walterthebus');
 c.queue( 'https://account.altvr.com/channels/beatsntreats');
@@ -215,7 +219,6 @@ c.queue( 'https://account.altvr.com/channels/SendmeaNeonHeart');
 c.queue( 'https://account.altvr.com/channels/videogasmchannel');
 c.queue( 'https://account.altvr.com/channels/BRCvr_Tanu');
 c.queue( 'https://account.altvr.com/channels/meditation');
-c.queue( 'https://account.altvr.com/channels/1807495125421523031');
 c.queue( 'https://account.altvr.com/channels/1647417260878332280');
 c.queue( 'https://account.altvr.com/channels/1812628766552228619');
 c.queue( 'https://account.altvr.com/channels/paperbrcvr');
@@ -240,7 +243,6 @@ c.queue( 'https://account.altvr.com/channels/CampKissingFish');
 c.queue( 'https://account.altvr.com/channels/timemachine');
 c.queue( 'https://account.altvr.com/channels/TurtleTurtleTurtle');
 c.queue( 'https://account.altvr.com/channels/aestheticmobiledivision');
-c.queue( 'https://account.altvr.com/channels/1808277890802909627');
 c.queue( 'https://account.altvr.com/channels/Fuckup-Nights-Armenia-261262471068075');
 c.queue( 'https://account.altvr.com/channels/1812830832423862845');
 c.queue( 'https://account.altvr.com/channels/1451286379148345692');
@@ -248,7 +250,6 @@ c.queue( 'https://account.altvr.com/channels/1807550438745047984');
 c.queue( 'https://account.altvr.com/channels/feed-the-artists');
 c.queue( 'https://account.altvr.com/channels/Contraptionists');
 c.queue( 'https://account.altvr.com/channels/darcy');
-c.queue( 'https://account.altvr.com/channels/SendmeaNeonHeart');
 c.queue( 'https://account.altvr.com/channels/1814090315309514795');
 c.queue( 'https://account.altvr.com/channels/1814074672115876509');
 c.queue( 'https://account.altvr.com/channels/1813472249668173829');
