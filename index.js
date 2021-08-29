@@ -39,7 +39,7 @@ function writeVenue(name, website) {
 
 function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, description) {
   name = name.replace(' | AltspaceVR', '');
-  name = name.replace(',', '');
+  name = name.replace(/,/g, '');
   //  venue = venue.replace(' Channel', '');
 
   var endDateObj = new Date(unixEndTime * 1000);
@@ -61,6 +61,7 @@ function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, desc
   description = description.replace('"', '\'');
   description = description.replace(/\n/gi, '');
   description = description.replace(/\r/gi, '');
+  description = description.replace(/,/g, '');
 
   name = name.replace('"', '\'');
   name = name.replace(/\n/gi, '');
@@ -246,6 +247,16 @@ c.queue( 'https://account.altvr.com/channels/1451286379148345692');
 c.queue( 'https://account.altvr.com/channels/1807550438745047984');
 c.queue( 'https://account.altvr.com/channels/feed-the-artists');
 c.queue( 'https://account.altvr.com/channels/Contraptionists');
+c.queue( 'https://account.altvr.com/channels/darcy');
+c.queue( 'https://account.altvr.com/channels/SendmeaNeonHeart');
+c.queue( 'https://account.altvr.com/channels/1814090315309514795');
+c.queue( 'https://account.altvr.com/channels/1814074672115876509');
+c.queue( 'https://account.altvr.com/channels/1813472249668173829');
+c.queue( 'https://account.altvr.com/channels/1813640042363486347');
+c.queue( 'https://account.altvr.com/channels/1813656996696555588');
+c.queue( 'https://account.altvr.com/channels/bkabstract');
+c.queue( 'https://account.altvr.com/channels/mucarobynino');
+c.queue( 'https://account.altvr.com/channels/awakenthegiants');
 
 
 
