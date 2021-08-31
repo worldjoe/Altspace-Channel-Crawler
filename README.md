@@ -26,5 +26,4 @@ Ignore the Import Name
 Content Type: Select "Events"
 
 Send Paul events.csv via slack
-Send @RedBirdBean the PSTevents.csv via slack
 
