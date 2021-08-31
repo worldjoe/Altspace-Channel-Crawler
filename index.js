@@ -42,21 +42,34 @@ function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, desc
   name = name.replace(/,/g, '');
   //  venue = venue.replace(' Channel', '');
 
-  var endDateObj = new Date(unixEndTime * 1000);
-  var startDateObj = new Date(unixStartTime * 1000);
-  console.log('ISO Start Date' + startDateObj.toISOString());
-  console.log('ISO End Date' + endDateObj.toISOString());
-  var startMonth =  startDateObj.getUTCMonth()+1;
-  var endMonth =  endDateObj.getUTCMonth()+1;
+  var endDateUTCObj = new Date(unixEndTime * 1000);
+  var startDateUTCObj = new Date(unixStartTime * 1000);
+  console.log('ISO Start Date' + startDateUTCObj.toISOString());
+  console.log('ISO End Date' + endDateUTCObj.toISOString());
+  var startMonthUTC =  startDateUTCObj.getUTCMonth()+1;
+  var endMonthUTC=  endDateUTCObj.getUTCMonth()+1;
 
-  var startHours =  startDateObj.getUTCHours();
-  var endHours =  endDateObj.getUTCHours();
+  var startHoursUTC =  startDateUTCObj.getUTCHours();
+  var endHoursUTC =  endDateUTCObj.getUTCHours();
 
-  var startDate = startDateObj.getUTCFullYear() + '-' + startMonth + '-' + startDateObj.getUTCDate();
-  var endDate = endDateObj.getUTCFullYear() + '-' + endMonth + '-' + endDateObj.getUTCDate();
+  var startDateUTC = startDateUTCObj.getUTCFullYear() + '-' + startMonthUTC + '-' + startDateUTCObj.getUTCDate();
+  var endDateUTC = endDateUTCObj.getUTCFullYear() + '-' + endMonthUTC + '-' + endDateUTCObj.getUTCDate();
 
-  var startTime = startHours + ':' + startDateObj.getUTCMinutes() + ':' + startDateObj.getUTCSeconds();
-  var endTime = endHours + ':' + endDateObj.getUTCMinutes() + ':' + endDateObj.getUTCSeconds();
+  var startTimeUTC = startHoursUTC + ':' + startDateUTCObj.getUTCMinutes() + ':' + startDateUTCObj.getUTCSeconds();
+  var endTimeUTC = endHoursUTC + ':' + endDateUTCObj.getUTCMinutes() + ':' + endDateUTCObj.getUTCSeconds();
+
+
+  var startMonthPST =  startDateUTCObj.getMonth()+1;
+  var endMonthPST=  endDateUTCObj.getMonth()+1;
+
+  var startHoursPST =  startDateUTCObj.getHours();
+  var endHoursPST =  endDateUTCObj.getHours();
+
+  var startDatePST = startDateUTCObj.getFullYear() + '-' + startMonthPST + '-' + startDateUTCObj.getDate();
+  var endDatePST = endDateUTCObj.getFullYear() + '-' + endMonthPST + '-' + endDateUTCObj.getUTCDate();
+
+  var startTimePST = startHoursPST + ':' + startDateUTCObj.getMinutes() + ':' + startDateUTCObj.getSeconds();
+  var endTimePST = endHoursPST + ':' + endDateUTCObj.getMinutes() + ':' + endDateUTCObj.getSeconds();
 
   description = description.replace('"', '\'');
   description = description.replace(/\n/gi, '');
@@ -67,10 +80,14 @@ function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, desc
   name = name.replace(/\n/gi, '');
   name = name.replace(/\r/gi, '');
 
-  var eventString = '"' + name + '",' + venue + ',' + startDate + ',' + startTime + ',' + endDate + ',' + endTime + ',' + 'UTC,"' + tags.join() + '",' + website + ',"' + description + '",' + eventCode + '\n';
+  var eventString = '"' + name + '",' + venue + ',' + startDateUTC + ',' + startTimeUTC + ',' + endDateUTC + ',' + endTimeUTC + ',' + 'UTC,"' + tags.join() + '",' + website + ',"' + description + '",' + eventCode + '\n';
+  var eventStringPST = '"' + name + '",' + venue + ',' + startDatePST + ',' + startTimePST + ',' + endDatePST + ',' + endTimePST + ',' + 'PST,"' + tags.join() + '",' + website + ',"' + description + '",' + eventCode + '\n';
   console.log(eventString);
 
   fs.appendFile('events.csv', eventString, function (err) {
+    if (err) return console.log(err);
+  });
+  fs.appendFile('PSTevents.csv', eventStringPST, function (err) {
     if (err) return console.log(err);
   });
 }
@@ -190,8 +207,6 @@ const c = new Crawler({
 //c.queue();
 //c.queue( '');
 c.queue( 'https://account.altvr.com/channels/1809820067253191080');
-c.queue( 'https://account.altvr.com/channels/1810790396683354388');
-c.queue( 'https://account.altvr.com/channels/1812742684712895103');
 c.queue( 'https://account.altvr.com/channels/1812211998444749374');
 c.queue( 'https://account.altvr.com/channels/1812610100926349655');
 c.queue( 'https://account.altvr.com/channels/1810207574570565838');
@@ -245,8 +260,6 @@ c.queue( 'https://account.altvr.com/channels/TurtleTurtleTurtle');
 c.queue( 'https://account.altvr.com/channels/aestheticmobiledivision');
 c.queue( 'https://account.altvr.com/channels/Fuckup-Nights-Armenia-261262471068075');
 c.queue( 'https://account.altvr.com/channels/1812830832423862845');
-c.queue( 'https://account.altvr.com/channels/1451286379148345692');
-c.queue( 'https://account.altvr.com/channels/1807550438745047984');
 c.queue( 'https://account.altvr.com/channels/feed-the-artists');
 c.queue( 'https://account.altvr.com/channels/Contraptionists');
 c.queue( 'https://account.altvr.com/channels/darcy');
@@ -258,6 +271,27 @@ c.queue( 'https://account.altvr.com/channels/1813656996696555588');
 c.queue( 'https://account.altvr.com/channels/bkabstract');
 c.queue( 'https://account.altvr.com/channels/mucarobynino');
 c.queue( 'https://account.altvr.com/channels/awakenthegiants');
+c.queue( 'https://account.altvr.com/channels/1814763864412128130');
+c.queue( 'https://account.altvr.com/channels/Cosmic');
+c.queue( 'https://account.altvr.com/channels/CampBurningSaucer');
+c.queue( 'https://account.altvr.com/channels/1550949030748487816');
+c.queue( 'https://account.altvr.com/channels/Samskara');
+c.queue( 'https://account.altvr.com/channels/DarkSideZone');
+c.queue( 'https://account.altvr.com/channels/DeepArtZone');
+c.queue( 'https://account.altvr.com/channels/LiminalZone');
+c.queue( 'https://account.altvr.com/channels/centercamp');
+c.queue( 'https://account.altvr.com/channels/EmbassyofBurningManInformation');
+c.queue( 'https://account.altvr.com/channels/SafetyThirdZone');
+c.queue( 'https://account.altvr.com/channels/EcoZone');
+c.queue( 'https://account.altvr.com/channels/KeyholeZone');
+c.queue( 'https://account.altvr.com/channels/EsplanadeZone');
+c.queue( 'https://account.altvr.com/channels/1554776506708788165');
+c.queue( 'https://account.altvr.com/channels/TempleoftheGuardian');
+c.queue( 'https://account.altvr.com/channels/BRCvr_Main_Stage');
+c.queue( 'https://account.altvr.com/channels/El_Pulpo');
+c.queue( 'https://account.altvr.com/channels/1813996556886474995');
+c.queue( 'https://account.altvr.com/channels/1814970724029301525');
+c.queue( 'https://account.altvr.com/channels/MerryMadTeaParty2021');
 
 
 
