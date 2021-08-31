@@ -25,6 +25,10 @@ fs.writeFile('events.csv', 'EVENT NAME,VENUE NAME,START DATE,START TIME,END DATE
   if (err) return console.log(err);
 });
 
+fs.writeFile('PSTevents.csv', 'EVENT NAME,VENUE NAME,START DATE,START TIME,END DATE,END TIME,TIMEZONE, CATEGORIES,EVENT WEBSITE,EVENT DESCRIPTION, EVENT CODE\n', function (err) {
+  if (err) return console.log(err);
+});
+
 
 function writeVenue(name, website) {
   name = name.replace(' | AltspaceVR', '');
