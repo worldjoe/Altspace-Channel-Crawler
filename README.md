@@ -3,6 +3,12 @@ https://nodejs.org/en/
 setup:
 npm install
 
+Check if there are any new channels.
+https://docs.google.com/spreadsheets/d/1CrTNfB8D7zKl0dnyvcbWSEnAC-vp8SwNebc18M33MeU/edit#gid=0
+Look at the column "Updated on". Paul adds new channels once per day.
+Add any new ones to the c.queue in the file.
+If Paul notices duplicate events then he'll tell you which camp. Search the terminal log for the name of the venue and you will find a channel that has both a GUID and a friendly name in the list. Remove one of them.
+
 run:
 node index.js
 
@@ -19,14 +25,5 @@ Import Origin is "CSV File"
 Ignore the Import Name
 Content Type: Select "Events"
 
-
-Open up this doc:
-https://docs.google.com/spreadsheets/d/1-5queGgMVs2p15zbi6bwnrsfT7o_OEGO26xvkzo3mcY/edit#gid=500086104
-and add any new venues to the Channels spreadsheet.
-You can copy the contents of venue.csv and paste into the spreadsheet then click on the little clipboard icon and select "split text into columns"
-Then in the drop down select Comma as the separator.
-
-We also need to past the events.csv into the Events tab.
-I find it easier to paste into a new spreadsheet, split the same as above into columns. Then clean up so only the Name and url shows up.
-Then you can copy all the data from the old spreadsheet over and remove any dupes.
+Send Paul events.csv via slack
 
