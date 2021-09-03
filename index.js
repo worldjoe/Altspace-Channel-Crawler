@@ -33,6 +33,7 @@ fs.writeFile('PSTevents.csv', 'EVENT NAME,VENUE NAME,START DATE,START TIME,END D
 function writeVenue(name, website) {
   name = name.replace(' | AltspaceVR', '');
   name = name.replace("'", '');
+  name = name.replace(/,/g, '');
   venueText = name + ',' + website + '\n';
   console.log("Writing venue " + venueText);
   fs.appendFile('venue.csv', venueText, function (err) {
@@ -300,6 +301,7 @@ c.queue( 'https://account.altvr.com/channels/winkinglotus');
 c.queue( 'https://account.altvr.com/channels/1815689017002295357');
 c.queue( 'https://account.altvr.com/channels/TheBar');
 c.queue( 'https://account.altvr.com/channels/disorient');
+c.queue( 'https://account.altvr.com/channels/1814290999141204079');
 
 
 
