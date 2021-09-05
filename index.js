@@ -87,7 +87,7 @@ function writeEvent(name, venue, unixStartTime, unixEndTime, tags, website, desc
 
   var eventString = '"' + name + '",' + venue + ',' + startDateUTC + ',' + startTimeUTC + ',' + endDateUTC + ',' + endTimeUTC + ',' + 'UTC,"' + tags.join() + '",' + website + ',"' + description + '",' + eventCode + '\n';
   var eventStringPST = '"' + name + '",' + venue + ',' + startDatePST + ',' + startTimePST + ',' + endDatePST + ',' + endTimePST + ',' + 'PST,"' + tags.join() + '",' + website + ',"' + description + '",' + eventCode + '\n';
-  console.log(eventString);
+  console.log('\x1b[32m%s\x1b[0m', eventString);
 
   fs.appendFile('events.csv', eventString, function (err) {
     if (err) return console.log(err);
@@ -121,7 +121,8 @@ function handleEventLink(venue, eventLink) {
             const $ = res.$;
             // $ is Cheerio by default
             //a lean implementation of core jQuery designed specifically for the server
-          var title = $('title').text();
+            console.log('\x1b[36m%s\x1b[0m', '*****************************************************************************');
+            var title = $('title').text();
             console.log(title);
             var links = $("a");
           //          var venue;
@@ -163,7 +164,7 @@ function handleEventLink(venue, eventLink) {
           if (venue.localeCompare("BRCvr Events") == 0 || isDuringBurnWeek(unixStartTime)) {
             writeEvent(title, venue, unixStartTime, unixEndTime, hashTagArray, 'https://account.altvr.com/' + eventLink, description, eventCode);
           } else {
-            console.log("Ignoring non burn week event from " + venue);
+            console.log('\x1b[31m%s\x1b[0m',"Ignoring non burn week event from " + venue);
           }
 
         }
